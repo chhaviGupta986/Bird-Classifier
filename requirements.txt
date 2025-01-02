@@ -8,3 +8,8 @@ matplotlib
 streamlit
 streamlit_extras
 tqdm
+requests
+torch
+transformers
+pillow
+google-generative-ai
