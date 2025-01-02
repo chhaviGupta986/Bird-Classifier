@@ -220,8 +220,7 @@ def prediction(audio_file):
     add_vertical_space(1)
     # Add a collapsible section to display the list
     bird_species.sort()
-    with st.expander("View List of Identifiable Bird Species"):
-        st.write("Here are the bird species that can be identified:")
+    with st.expander("View List of Bird Species Identifiable by Sound"):
         for bird in bird_species:
             st.write("- " + bird)
 classification_type = st.radio("Select Classification Type", ["Audio", "Image"], horizontal=True)
