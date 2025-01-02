@@ -1,15 +1,11 @@
 tensorflow
 scikit-learn
-opencv-python-headless
 librosa
 numpy
 pandas
 matplotlib
 streamlit
-streamlit_extras
-tqdm
 requests
-torch
 transformers
 pillow
 google-generativeai

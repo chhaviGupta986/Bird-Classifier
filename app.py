@@ -1,29 +1,25 @@
-# import os
 import json
 import librosa
-# import cv2
 import numpy as np
 import tensorflow as tf
 import streamlit as st
-# from streamlit_extras.add_vertical_space import add_vertical_space
 from warnings import filterwarnings
 filterwarnings('ignore')
 import requests
 from transformers import AutoImageProcessor, AutoModelForImageClassification
-# import torch
 from PIL import Image
-from google.generativeai import configure, GenerativeModel
+from google.generativeai import GenerativeModel
 import google.generativeai as genai
 import torch.nn.functional as F  # For the softmax function
 # Configure API key
-genai.configure(api_key='AIzaSyCadi6j6_olpoUrlqRH41wFYqEpNcIn3Vo')  # Store securely, preferably as environment variable
+genai.configure(api_key='AIzaSyCadi6j6_olpoUrlqRH41wFYqEpNcIn3Vo')  
+# Store securely, preferably as environment variable
+# replace with your own 
 
 def get_gemini_response(prompt):
     model = GenerativeModel('gemini-pro')
     response = model.generate_content(prompt)
     return response.text
-
-
 
 # New Code for Bird Image Classifier (Hugging Face Model)
 # Load model and processor
@@ -98,9 +94,7 @@ def streamlit_config():
     # title and position
     st.markdown(f'<h1 style="text-align: center;">Identify Bird Species from Sound or Image</h1>',
                 unsafe_allow_html=True)
-    # # add_vertical_space(4)
-    # # Display content in the sidebar
-    # st.sidebar.header("TEAM MEMBERS:")
+
     team_members = [
         "Viraj Yadav, 16010121216",
         "Chhavi Gupta, 16010121218",
@@ -108,51 +102,9 @@ def streamlit_config():
         "Varrshinie Aravindan, 16010121221",
         "Siddhi Raman,  16010121222"
     ]
-    # for member in team_members:
-    #     st.sidebar.write(member)
-    # for member in team_members:
-    #     st.sidebar.markdown(f'<p class="sidebar-team-members">{member}</p>', unsafe_allow_html=True)
-
-    # List of bird species
-    # bird_species = [
-    #     'Tataupa Tinam', 'Southern Brown Kiwi', 'Berlepschs Tinam', 'Rusty Tinam', 'Chilean Tinam',
-    #     'Philippine Megapode', 'Black-fronted Piping Gua', 'Quebracho Crested Tinam', 'White-browed Gua',
-    #     'Baudo Gua', 'Greater Rhea', 'Grey Tinam', 'Great Spotted Kiwi', 'Choco Tinam', 'White-winged Gua',
-    #     'Rusty-margined Gua', 'Malleefowl', 'New Guinea Scrubfowl', 'Lesser Rhea', 'Barred Tinam',
-    #     'Colombian Chachalaca', 'Chaco Chachalaca', 'Cauca Gua', 'Dwarf Tinam', 'Thicket Tinam',
-    #     'Melanesian Megapode', 'Brown Tinam', 'Darwins Nothura', 'Little Tinam', 'Brushland Tinam',
-    #     'Moluccan Megapode', 'Red-throated Piping Gua', 'Red-billed Brushturkey', 'Orange-footed Scrubfowl',
-    #     'Great Tinam', 'Elegant Crested Tinam', 'Little Chachalaca', 'Lesser Nothura', 'Grey-headed Chachalaca',
-    #     'Puna Tinam', 'Tawny-breasted Tinam', 'Nicobar Megapode', 'Black Tinam', 'Bearded Gua', 'Band-tailed Gua',
-    #     'White-bellied Nothura', 'Collared Brushturkey', 'Australian Brushturkey', 'White-bellied Chachalaca',
-    #     'Wattled Brushturkey', 'Spotted Nothura', 'White-crested Gua', 'Male', 'Blue-throated Piping Gua',
-    #     'Rufous-vented Chachalaca', 'Em', 'Chestnut-winged Chachalaca', 'Taczanowskis Tinam', 'Pale-browed Tinam',
-    #     'Tepui Tinam', 'Spixs Gua', 'Dusky-legged Gua', 'Curve-billed Tinam', 'Micronesian Megapode',
-    #     'Huayco Tinam', 'Buff-browed Chachalaca', 'Red-winged Tinam', 'Black-billed Brushturkey',
-    #     'Little Spotted Kiwi', 'Marail Gua', 'Andean Gua', 'Rufous-bellied Chachalaca', 'Okarito Kiwi',
-    #     'Andean Tinam', 'Rufous-headed Chachalaca', 'Scaled Chachalaca', 'Tongan Megapode', 'Yellow-legged Tinam',
-    #     'Slaty-breasted Tinam', 'Ornate Tinam', 'Speckled Chachalaca', 'Bartletts Tinam', 'Sula Megapode',
-    #     'Cinereous Tinam', 'Hooded Tinam', 'Southern Cassowary', 'Variegated Tinam', 'Chestnut-bellied Gua',
-    #     'Dusky Megapode', 'Tanimbar Megapode', 'Vanuatu Megapode', 'Black-capped Tinam', 'Brazilian Tinam',
-    #     'Red-legged Tinam', 'Undulated Tinam', 'Dwarf Cassowary', 'Solitary Tinam', 'Plain Chachalaca',
-    #     'Northern Cassowary', 'Patagonian Tinam', 'White-throated Tinam', 'Common Ostrich', 'Red-faced Gua',
-    #     'Biak Scrubfowl', 'Highland Tinam', 'Grey-legged Tinam', 'West Mexican Chachalaca', 'Somali Ostrich',
-    #     'Small-billed Tinam', 'East Brazilian Chachalaca', 'Chestnut-headed Chachalaca',
-    #     'North Island Brown Kiwi', 'Crested Gua', 'Trinidad Piping Gua'
-    # ]
-
-    # # Sidebar header
-    # st.sidebar.header("Bird Species Identifiable by Model")
-
-    # # Add a collapsible section for bird species
-    # with st.sidebar.expander("View Bird Species"):
-    #     for species in bird_species:
-    #         st.write(species)
     add_vertical_space(2)
-    # Display content in the sidebar
-    # add_vertical_space(2)
+
     st.sidebar.header("")
-    # st.sidebar.header("")
     st.sidebar.header("Team Members:")
     for member in team_members:
         st.sidebar.markdown(f'<p class="sidebar-team-members">{member}</p>', unsafe_allow_html=True)
@@ -202,8 +154,7 @@ def prediction(audio_file):
     add_vertical_space(1)
     st.markdown(f'<h4 style="text-align: center; color: white;">{confidence:.2f}% Match Found</h4>', 
                     unsafe_allow_html=True)
-    # _,col2,_  = st.columns([0.1,0.9,0.1])
-    # with col2:
+
     predicted_class = predicted_class.replace('_sound', '')
     st.markdown(f'<h2 style="text-align: center; color: #99ccff;">Identified as: {predicted_class}</h2>', 
                     unsafe_allow_html=True)
@@ -217,28 +168,6 @@ def prediction(audio_file):
         </style>
         """, unsafe_allow_html=True)
 
-    # Display Bird Classifier (Hugging Face)
-    # image = st.file_uploader("Upload a Bird Image", type=["jpg", "jpeg", "png"])
-
-    # if image is not None:
-    #     # Process the image with the Hugging Face model
-    #     img = processor(images=image, return_tensors="pt").pixel_values
-    #     outputs = model(img)
-    #     predicted_label = model.config.id2label[torch.argmax(outputs.logits).item()]
-    #     st.image(image, caption="Uploaded Bird Image", use_container_width=True)
-    #     st.markdown(f"**Predicted Bird Species:** {predicted_label}")
-
-    # st.markdown(f'<h2 style="text-align: center; color: white;">{predicted_class}</h2>',
-    #             unsafe_allow_html=True)
-
-    # bird_info = get_bird_info_and_image(predicted_class)
-
-    # if bird_info:
-    #     st.markdown(f"[Learn more about {predicted_class}]({bird_info['url']})")
-    #     st.image(bird_info['image'], caption=f"{bird_info['title']} - {bird_info['description']}", use_container_width=True)
-    # # return confidence
-    # _,col2,_  = st.columns([0.1,0.9,0.1])
-    # with col2:
     # Initialize session state for showing Q&A form
     if 'show_qa_audio' not in st.session_state:
         st.session_state.show_qa_audio = False
@@ -269,8 +198,6 @@ def prediction(audio_file):
         _,col2,_  = st.columns([0.1,0.9,0.1])
         with col2:
             add_vertical_space(1)
-            # st.markdown("### Ask questions about this bird")
-            # st.markdown("#### Ask questions about this bird:")
             with st.form(key='qa_form'):
                 st.markdown("#### Ask questions about this bird:")
                 question = st.text_input("")
@@ -287,29 +214,12 @@ def prediction(audio_file):
                         response = get_gemini_response(prompt)
                         st.write("Answer:\n", response)
 
-# _,col2,_  = st.columns([0.1,0.9,0.1])
-# with col2:
-#     input_audio = st.file_uploader(label='Upload the Audio', type=['mp3', 'wav'])
-
-# if input_audio is not None:
-
-#     _,col2,_ = st.columns([0.2,0.8,0.2])
-#     with col2:
-#         prediction(input_audio)
-
-# Add radio button for selection
 classification_type = st.radio("Select Classification Type", ["Audio", "Image"], horizontal=True)
 
 if classification_type == "Audio":
     input_audio = st.file_uploader(label='Upload the Audio', type=['mp3', 'wav'])
     if input_audio is not None:
         st.audio(input_audio, format='audio/wav')  # Streamlit supports wav, mp3, and ogg formats
-        
-        # # Optional: Save the file locally (if needed for processing)
-        # with open("uploaded_audio.wav", "wb") as f:
-        #     f.write(input_audio.getbuffer())
-        # _, col2, _ = st.columns([0.1,0.9,0.1])
-        # with col2:
         prediction(input_audio)
 
 else:  # Image classification
@@ -319,8 +229,6 @@ else:  # Image classification
         image = Image.open(input_image)
         inputs = processor(image, return_tensors="pt")
         outputs = model(**inputs)
-        # predicted_class = model.config.id2label[outputs.logits.argmax().item()]
-        # predicted_class=predicted_class.capitalize()
 
         # Get the predicted class
         predicted_class_idx = outputs.logits.argmax().item()  # Get the index of the highest logit
@@ -335,10 +243,6 @@ else:  # Image classification
         # Convert confidence to percentage
         confidence_percentage = confidence * 100
 
-        # Display the result
-        # st.write(f"Predicted Class: {predicted_class}")
-        # st.write(f"Confidence: {confidence_percentage:.2f}%")
-        # Display results similar to audio
         st.image(image)
         add_vertical_space(1)
         st.markdown(f'<h4 style="text-align: center; color: white;">{confidence_percentage:.2f}% Match Found</h4>', 
@@ -389,12 +293,9 @@ else:  # Image classification
             _,col2,_  = st.columns([0.1,0.9,0.1])
             with col2:
                 add_vertical_space(1)
-                # st.markdown("### Ask questions about this bird")
-                # st.markdown("#### Ask questions about this bird:")
                 with st.form(key='qa_form'):
                     st.markdown("#### Ask questions about this bird:")
                     question = st.text_input("")
-                    # question = st.text_input("Enter question")
                     submit_button = st.form_submit_button("Ask")
                     
                     if submit_button and question:
