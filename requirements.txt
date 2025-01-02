@@ -12,4 +12,4 @@ requests
 torch
 transformers
 pillow
-google-generative-ai
+google-generativeai
