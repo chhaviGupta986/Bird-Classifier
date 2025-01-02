@@ -1,7 +1,7 @@
-import os
+# import os
 import json
 import librosa
-import cv2
+# import cv2
 import numpy as np
 import tensorflow as tf
 import streamlit as st
@@ -10,11 +10,11 @@ from warnings import filterwarnings
 filterwarnings('ignore')
 import requests
 from transformers import AutoImageProcessor, AutoModelForImageClassification
-import torch
+# import torch
 from PIL import Image
 from google.generativeai import configure, GenerativeModel
 import google.generativeai as genai
-
+import torch.nn.functional as F  # For the softmax function
 # Configure API key
 genai.configure(api_key='AIzaSyCadi6j6_olpoUrlqRH41wFYqEpNcIn3Vo')  # Store securely, preferably as environment variable
 
@@ -205,7 +205,7 @@ def prediction(audio_file):
     # _,col2,_  = st.columns([0.1,0.9,0.1])
     # with col2:
     predicted_class = predicted_class.replace('_sound', '')
-    st.markdown(f'<h2 style="text-align: center; color: #99ccff;">Identified Species: {predicted_class}</h2>', 
+    st.markdown(f'<h2 style="text-align: center; color: #99ccff;">Identified as: {predicted_class}</h2>', 
                     unsafe_allow_html=True)
     st.markdown(
         """
@@ -319,17 +319,36 @@ else:  # Image classification
         image = Image.open(input_image)
         inputs = processor(image, return_tensors="pt")
         outputs = model(**inputs)
-        predicted_class = model.config.id2label[outputs.logits.argmax().item()]
-        predicted_class=predicted_class.capitalize()
+        # predicted_class = model.config.id2label[outputs.logits.argmax().item()]
+        # predicted_class=predicted_class.capitalize()
+
+        # Get the predicted class
+        predicted_class_idx = outputs.logits.argmax().item()  # Get the index of the highest logit
+        predicted_class = model.config.id2label[predicted_class_idx]
+        predicted_class = predicted_class.capitalize()
+
+        # Calculate the confidence
+        logits = outputs.logits
+        softmax_probs = F.softmax(logits, dim=1)  # Apply softmax to get probabilities
+        confidence = softmax_probs[0][predicted_class_idx].item()  # Get the probability of the predicted class
+
+        # Convert confidence to percentage
+        confidence_percentage = confidence * 100
+
+        # Display the result
+        # st.write(f"Predicted Class: {predicted_class}")
+        # st.write(f"Confidence: {confidence_percentage:.2f}%")
         # Display results similar to audio
+        st.image(image)
+        add_vertical_space(1)
+        st.markdown(f'<h4 style="text-align: center; color: white;">{confidence_percentage:.2f}% Match Found</h4>', 
+                        unsafe_allow_html=True)        
+        st.markdown(f'<h2 style="text-align: center; color: #99ccff;">Identified as: {predicted_class}</h2>', 
+                    unsafe_allow_html=True)
         
         _,col2,_  = st.columns([0.1,0.9,0.1])
         with col2:
-            st.image(image)
-            st.markdown(f'<h2 style="text-align: center; color: #99ccff;">Identified as: {predicted_class}</h2>', 
-                        unsafe_allow_html=True)
-        # st.markdown(f'<h2 style="text-align: center; color: #99ccff;">Identified Species of Bird: {predicted_class}</h2>', 
-        #                 unsafe_allow_html=True)
+
             st.markdown(
                 """
                 <style>
