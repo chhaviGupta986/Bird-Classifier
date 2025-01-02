@@ -49,7 +49,7 @@ def get_bird_info_and_image(bird_name):
 def streamlit_config():
 
     # page configuration
-    st.set_page_config(page_title='Bird Classifier', page_icon="favicon1.ico", layout='centered', initial_sidebar_state='expanded')
+    st.set_page_config(page_title='Bird Classifier', page_icon="favicon.ico", layout='centered', initial_sidebar_state='expanded')
 
     page_background_color = """
     <style>
