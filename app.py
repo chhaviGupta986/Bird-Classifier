@@ -212,7 +212,16 @@ def prediction(audio_file):
                                 
                         response = get_gemini_response(prompt)
                         st.write("Answer:\n", response)
-
+    # Example list of 114 bird species
+    
+    bird_species=['Tataupa Tinam', 'Southern Brown Kiwi', 'Berlepschs Tinam', 'Rusty Tinam', 'Chilean Tinam', 'Philippine Megapode', 'Black-fronted Piping Gua', 'Quebracho Crested Tinam', 'White-browed Gua', 'Baudo Gua', 'Greater Rhea', 'Grey Tinam', 'Great Spotted Kiwi', 'Choco Tinam', 'White-winged Gua', 'Rusty-margined Gua', 'Malleefowl', 'New Guinea Scrubfowl', 'Lesser Rhea', 'Barred Tinam', 'Colombian Chachalaca', 'Chaco Chachalaca', 'Cauca Gua', 'Dwarf Tinam', 'Thicket Tinam', 'Melanesian Megapode', 'Brown Tinam', 'Darwins Nothura', 'Little Tinam', 'Brushland Tinam', 'Moluccan Megapode', 'Red-throated Piping Gua', 'Red-billed Brushturkey', 'Orange-footed Scrubfowl', 'Great Tinam', 'Elegant Crested Tinam', 'Little Chachalaca', 'Lesser Nothura', 'Grey-headed Chachalaca', 'Puna Tinam', 'Tawny-breasted Tinam', 'Nicobar Megapode', 'Black Tinam', 'Bearded Gua', 'Band-tailed Gua', 'White-bellied Nothura', 'Collared Brushturkey', 'Australian Brushturkey', 'White-bellied Chachalaca', 'Wattled Brushturkey', 'Spotted Nothura', 'White-crested Gua', 'Male', 'Blue-throated Piping Gua', 'Rufous-vented Chachalaca', 'Em', 'Chestnut-winged Chachalaca', 'Taczanowskis Tinam', 'Pale-browed Tinam', 'Tepui Tinam', 'Spixs Gua', 'Dusky-legged Gua', 'Curve-billed Tinam', 'Micronesian Megapode', 'Huayco Tinam', 'Buff-browed Chachalaca', 'Red-winged Tinam', 'Black-billed Brushturkey', 'Little Spotted Kiwi', 'Marail Gua', 'Andean Gua', 'Rufous-bellied Chachalaca', 'Okarito Kiwi', 'Andean Tinam', 'Rufous-headed Chachalaca', 'Scaled Chachalaca', 'Tongan Megapode', 'Yellow-legged Tinam', 'Slaty-breasted Tinam', 'Ornate Tinam', 'Speckled Chachalaca', 'Bartletts Tinam', 'Sula Megapode', 'Cinereous Tinam', 'Hooded Tinam', 'Southern Cassowary', 'Variegated Tinam', 'Chestnut-bellied Gua', 'Dusky Megapode', 'Tanimbar Megapode', 'Vanuatu Megapode', 'Black-capped Tinam', 'Brazilian Tinam', 'Red-legged Tinam', 'Undulated Tinam', 'Dwarf Cassowary', 'Solitary Tinam', 'Plain Chachalaca', 'Northern Cassowary', 'Patagonian Tinam', 'White-throated Tinam', 'Common Ostrich', 'Red-faced Gua', 'Biak Scrubfowl', 'Highland Tinam', 'Grey-legged Tinam', 'West Mexican Chachalaca', 'Somali Ostrich', 'Small-billed Tinam', 'East Brazilian Chachalaca', 'Chestnut-headed Chachalaca', 'North Island Brown Kiwi', 'Crested Gua', 'Trinidad Piping Gua']
+    
+    add_vertical_space(1)
+    # Add a collapsible section to display the list
+    with st.expander("View List of Identifiable Bird Species"):
+        st.write("Here are the bird species that can be identified:")
+        for bird in bird_species:
+            st.write("- " + bird)
 classification_type = st.radio("Select Classification Type", ["Audio", "Image"], horizontal=True)
 
 if classification_type == "Audio":
