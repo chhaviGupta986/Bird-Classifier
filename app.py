@@ -148,8 +148,11 @@ def streamlit_config():
     # with st.sidebar.expander("View Bird Species"):
     #     for species in bird_species:
     #         st.write(species)
-    add_vertical_space(4)
+    add_vertical_space(2)
     # Display content in the sidebar
+    # add_vertical_space(2)
+    st.sidebar.header("")
+    # st.sidebar.header("")
     st.sidebar.header("Team Members:")
     for member in team_members:
         st.sidebar.markdown(f'<p class="sidebar-team-members">{member}</p>', unsafe_allow_html=True)
@@ -310,7 +313,7 @@ if classification_type == "Audio":
         prediction(input_audio)
 
 else:  # Image classification
-    input_image = st.file_uploader(label='Upload the Image', type=['jpg', 'jpeg', 'png'])
+    input_image = st.file_uploader(label='Upload the Image', type=['jpg', 'jpeg'])
     if input_image is not None:
         # Process image prediction
         image = Image.open(input_image)
