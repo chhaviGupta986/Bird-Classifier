@@ -1,4 +1,5 @@
 tensorflow
+torch
 scikit-learn
 librosa
 numpy
