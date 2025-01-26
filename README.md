@@ -44,3 +44,10 @@ Model for Bird Species classification using Image has been taken from hugging fa
    
 4. Open the app in your browser at:  
    `http://localhost:8501`
+
+![image](https://github.com/user-attachments/assets/594bde44-dd88-40b0-9f49-1bf410c8e314)
+![image](https://github.com/user-attachments/assets/ebf11f45-d37e-4a1d-b9af-1ec6991c6004)
+![image](https://github.com/user-attachments/assets/a0b618ba-4057-42e6-acbb-867fcb37b0bb)
+![image](https://github.com/user-attachments/assets/740ef29f-0c09-4489-bbfb-4b492005271e)
+
+
